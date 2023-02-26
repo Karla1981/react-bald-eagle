@@ -13,10 +13,10 @@ function TodoList(props){
     return(
         <ul>
           {todoList.map(function ( todo ){
-            return 
+            return( 
             <TodoListItem key={todo.id} todo={todo}/> //passing props 'todo' 
-          })}
+          )})}
         </ul>
-    )
+    );
 }
 export default TodoList;

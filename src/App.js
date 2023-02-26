@@ -6,7 +6,7 @@ import TodoList from './TodoList';
 function App() {
   // create a new state variable named newTodo with 
   // update function named setNewTodo -useState hook
-  const [newTodo, setNewTodo] = React.useState('');
+  const [newTodo, setNewTodo] = useState('');
   
   //setNewTodo(event.target.value);
   //console.log(`here: ${props.setNewTodo(event.target.value)}`);
@@ -20,11 +20,14 @@ function App() {
     <div> 
         <h1>Todo List</h1>
           {/* 1.4 Pass todoList state as a prop named todoList to the TodoList component   todoList={todoList}  */}
-          <TodoList  />
-          <AddTodoForm onAddTodo={setNewTodo}/>
+          <AddTodoForm 
+          onAddTodo={setNewTodo}/>
           <p>Display the value of newTodo variable: <strong> {newTodo} </strong></p>
+          <TodoList  />
     </div>
   );
 }
 
 export default App;
+
+ 

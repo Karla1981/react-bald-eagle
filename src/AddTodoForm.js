@@ -10,20 +10,25 @@ function AddTodoForm(props) {
         event.preventDefault()
 
         // Save the new iputed value on 'todoTitle'
-        const todoTitle = event.target.title.value;
-      
-        // Inside the handleAddTodo function invoke the onAddTodo
-        props.onAddTodo(todoTitle)
-         event.target.title.value = '';
+        let todoTitle = event.target.value;
+        //const todoTitle = event.target.elements.title.value;
 
         //log the value of todoTitle in the console
-        console.log(`todoTitle: ${todoTitle}`);
+        console.log(todoTitle);
+      
+        //Need to come back to this!
+         //event.target.title = "";
+
         
         // * Inside the handleAddTodo function, 
         // * invoke the onAddTodo callback prop and pass todoTitle as an argument
  
         //Clears out the text from input text box
         //event.target.reset();
+
+        // Inside the handleAddTodo function invoke the onAddTodo
+        props.onAddTodo(todoTitle);
+        
     }
 
     return(
