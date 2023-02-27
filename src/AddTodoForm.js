@@ -2,44 +2,39 @@ import React from "react";
 
 //  Add props as a parameter in the AddTodoForm function
 function AddTodoForm(props) {
+  //function called 'handleAddTodo' that takes event as a parameter
+  const handleAddTodo = (event) => {
+    //preventDefault method
+    event.preventDefault();
 
-    //function called 'handleAddTodo' that takes event as a parameter
-    const handleAddTodo = (event) => {
-        
-        //preventDefault method
-        event.preventDefault()
+    // Save the new iputed value on 'todoTitle'
 
-        // Save the new iputed value on 'todoTitle'
-        let todoTitle = event.target.value;
-        //const todoTitle = event.target.elements.title.value;
+    //ALL OF THESE OPTIONS ARE WORKING!
+    let todoTitle = event.target.title.value;
+    //let todoTitle = event.target.elements.title.value;
+    //let todoTitle = event.target.elements["todoTitle"].value;
+    //let todoTitle = event.target[0].value;
 
-        //log the value of todoTitle in the console
-        console.log(todoTitle);
-      
-        //Need to come back to this!
-         //event.target.title = "";
+    //log the value of todoTitle in the console
+    console.log(todoTitle);
+    // Inside the handleAddTodo function invoke the onAddTodo
+    props.onAddTodo(todoTitle);
 
-        
-        // * Inside the handleAddTodo function, 
-        // * invoke the onAddTodo callback prop and pass todoTitle as an argument
- 
-        //Clears out the text from input text box
-        //event.target.reset();
+    //Clears out the text from input text box
+    //ALL OF THESE OPTIONS ARE WORKING!
+    //event.target.reset();
+    event.target.title.value = "";
+  };
 
-        // Inside the handleAddTodo function invoke the onAddTodo
-        props.onAddTodo(todoTitle);
-        
-    }
-
-    return(
-        //Add onSubmit prop and pass the handleAddTodo function
-        <form onSubmit={handleAddTodo}>
-            <label htmlFor="todoTitle">Title: 
-             <input name="title" type="text" id="todoTitle" onChange={handleAddTodo} />
-            </label>
-            <button type="submit">Add</button>
-            <p>Hi! : <strong>{props.todoTitle}</strong></p>
-        </form>
-    )
+  return (
+    //Add onSubmit prop and pass the handleAddTodo function
+    <form onSubmit={handleAddTodo}>
+      <label htmlFor="todoTitle">Title:</label>
+      <input name="title" type="text" id="todoTitle" />
+      {/* onChange={handleAddTodo}*/}
+      <button type="submit">Add</button>
+      {/* <p> Hi! : <strong>{props.todoTitle}</strong></p> */}
+    </form>
+  );
 }
 export default AddTodoForm;
