@@ -1,7 +1,7 @@
 import React from "react";
 
 //  Add props as a parameter in the AddTodoForm function
-function AddTodoForm(props) {
+function AddTodoForm( {onAddTodo} ) {
  
   //Add Todo Input step:
   const [todoTitle, setTodoTitle] = React.useState('');
@@ -29,16 +29,16 @@ function AddTodoForm(props) {
     //log the value of todoTitle in the console
     console.log(todoTitle);
     // Inside the handleAddTodo function invoke the onAddTodo
-    props.onAddTodo({title: todoTitle, id: Date.now()});
+    onAddTodo({title: todoTitle, id: Date.now()});
 
     //Clears out the text from input text box
     //ALL OF THESE OPTIONS ARE WORKING!
     //event.target.reset();
     //event.target.title.value = "";
     setTodoTitle('');
-
-
   };
+
+  // Destructure Props- cons {todoTitle} ?
 
   return (
     //Add onSubmit prop and pass the handleAddTodo function

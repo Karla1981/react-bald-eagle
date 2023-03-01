@@ -9,13 +9,13 @@ import TodoListItem from "./TodoListItem";
 
 
 // 1.4 Add props as a parameter to the TodoList functional component
-function TodoList(props){
+function TodoList({todoList}){
 
     return(
         <ul>
-          {props.todoList.map(function(todo){
+          {todoList.map(function(todo){
             return( 
-            <TodoListItem key={todo.id} todo={todo.title}/> //passing props 'todo' 
+            <TodoListItem key={todo.id} todo={todo}/> //passing props 'todo' 
     )})}
         </ul> 
     );
