@@ -11,21 +11,22 @@ function App() {
   //1.7 4 -  Below the todoList state, define a useEffect 
   //React hook with an empty dependency list
    useEffect( () => {
-    new Promise((resolve, reject) =>
-     setTimeout(() => 
-     {resolve( 
-       {data: 
-        {todoList:JSON.parse(localStorage
-          .getItem('savedTodoList')) || [] 
-        }
-      } 
-      )} ,2000))
+    // new Promise((resolve, reject) =>
+    //  setTimeout(() => 
+    //  {resolve( 
+    //    {data: 
+    //     {todoList:JSON.parse(localStorage
+    //       .getItem('savedTodoList')) || [] 
+    //     }
+    //   } 
+    //   )} ,2000))
+    
+    //fetch(`${NAREACT_APP_AIRTABLE_API_KEYME}react`)
+      fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Default`)
+      .then(response => response.json())
       .then(result => {
-
-      setTodoList(result.data.todoList); 
-
-      setIsLoading(false);
-
+        setTodoList(result.data.todoList); 
+        setIsLoading(false);
     });
 
   }, []);
