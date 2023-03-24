@@ -7,9 +7,10 @@ function TodoList({todoList, onRemoveTodo}){
     return(
         <ul>
           {todoList.map(function(todo){
-            return( 
-            <TodoListItem key={todo.id} id={todo.id} title={todo.title} onRemoveTodo={onRemoveTodo} /> //passing props 'todo' 
-    )})}
+                return( 
+                <TodoListItem key={todo.id} id={todo.id} title={todo.fields.Title} onRemoveTodo={onRemoveTodo} /> //passing props 'todo' 
+                )}
+            )}
         </ul> 
     );
 }
