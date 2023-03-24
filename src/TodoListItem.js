@@ -1,9 +1,9 @@
 import React from "react";
 
-function TodoListItem(props) {
+function TodoListItem({todo}) {
 
     return (
-        <span><li>{props.todo.title}</li></span> 
+        <span><li>{todo.title}</li></span> 
     )
 }
 export default TodoListItem;
