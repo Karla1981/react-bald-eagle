@@ -2,40 +2,57 @@ import React, { useState , useEffect } from 'react';
 import AddTodoForm from './AddTodoForm';
 import TodoList from './TodoList';
 
-// Custom Hook 
-const useSemiPersistentState = () =>{
-  const [todoList, setTodoList] = useState(JSON.parse(localStorage.getItem('savedTodoList')) || []);  
-  useEffect( () => {localStorage.setItem('savedTodoList', JSON.stringify(todoList) )}, [todoList] );
-
-  return(
-    [todoList,  setTodoList]
-  )
-}
-
 function App() {
 
-  const removeTodo = (id) => {
+  //1.7 2 Copy the useState and useEffect hooks from useSemiPersistentState function back into App
+  const [todoList, setTodoList] = useState([]); //useState(JSON.parse(localStorage.getItem('savedTodoList')) || []);
+  const [isLoading, setIsLoading] = useState(true);
 
+  //1.7 4 -  Below the todoList state, define a useEffect 
+  //React hook with an empty dependency list
+   useEffect( () => {
+    new Promise((resolve, reject) =>
+     setTimeout(() => 
+     {resolve( 
+       {data: 
+        {todoList:JSON.parse(localStorage
+          .getItem('savedTodoList')) || [] 
+        }
+      } 
+      )} ,2000))
+      .then(result => {
+
+      setTodoList(result.data.todoList); 
+
+      setIsLoading(false);
+
+    });
+
+  }, []);
+
+  useEffect( () => {if (isLoading === false )
+  {localStorage.setItem('savedTodoList', 
+    JSON.stringify(todoList) )}}, [todoList] );
+
+  const removeTodo = (id) => {
     setTodoList(todoList.filter((todo) => todo.id !== id));
   
   }
-  //use the new custom hook
-  const [todoList, setTodoList] = useSemiPersistentState("");
   //Add New Todo to List
   const addTodo = (newTodo) =>{
     setTodoList([...todoList, newTodo])//... spread operator
-  
 };
   return (
     <> 
         <h1>Todo List</h1>
           <AddTodoForm 
           onAddTodo={addTodo}/>
-          <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+            {isLoading ? <p>Is Loading...</p> : 
+            
+          <TodoList todoList={todoList} onRemoveTodo={removeTodo} />}
     </>
   );
 }
-
 export default App;
 
  
