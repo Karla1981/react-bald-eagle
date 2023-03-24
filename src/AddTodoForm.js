@@ -1,4 +1,6 @@
 import React from "react";
+import InputWithLabel from "./InputWithLabel";
+
 
 //  Add props as a parameter in the AddTodoForm function
 function AddTodoForm( {onAddTodo} ) {
@@ -43,8 +45,14 @@ function AddTodoForm( {onAddTodo} ) {
   return (
     //Add onSubmit prop and pass the handleAddTodo function
     <form onSubmit={handleAddTodo}>
-      <label htmlFor="todoTitle">Title:</label>
-      <input name="title" type="text" id="todoTitle" value={todoTitle} onChange={handleTitleChange}  />
+      <InputWithLabel 
+            id='todoTitle'
+            title='name'
+            todoTitle={todoTitle}
+            handleTitleChange={handleTitleChange}
+      > {/*Refactor Form with InputWithLabel**/}
+        <strong>Title:</strong>
+      </InputWithLabel>
       <button type="submit">Add</button>
     </form>
   );
