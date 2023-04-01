@@ -5,29 +5,21 @@ import TodoList from './TodoList';
 function App() {
 
   //1.7 2 Copy the useState and useEffect hooks from useSemiPersistentState function back into App
-  const [todoList, setTodoList] = useState([]); //useState(JSON.parse(localStorage.getItem('savedTodoList')) || []);
+  const [todoList, setTodoList] = useState([]); 
   const [isLoading, setIsLoading] = useState(true);
-
-  //1.7 4 -  Below the todoList state, define a useEffect 
-  //React hook with an empty dependency list
+  //Fetch data from API
    useEffect( () => {
-    new Promise((resolve, reject) =>
-     setTimeout(() => 
-     {resolve( 
-       {data: 
-        {todoList:JSON.parse(localStorage
-          .getItem('savedTodoList')) || [] 
-        }
-      } 
-      )} ,2000))
+    fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Default`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+        },
+      })
+      .then(response => response.json())
       .then(result => {
-
-      setTodoList(result.data.todoList); 
-
-      setIsLoading(false);
-
-    });
-
+        setTodoList(result.records); 
+        setIsLoading(false);
+    }).catch((error) => console.error(error));
   }, []);
 
   useEffect( () => {if (isLoading === false )
@@ -42,13 +34,13 @@ function App() {
   const addTodo = (newTodo) =>{
     setTodoList([...todoList, newTodo])//... spread operator
 };
+
   return (
     <> 
         <h1>Todo List</h1>
           <AddTodoForm 
           onAddTodo={addTodo}/>
-            {isLoading ? <p>Is Loading...</p> : 
-            
+            {isLoading ? <p>Is Loading...</p> :  
           <TodoList todoList={todoList} onRemoveTodo={removeTodo} />}
     </>
   );
