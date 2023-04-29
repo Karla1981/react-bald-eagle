@@ -7,11 +7,13 @@ function TodoList({todoList, onRemoveTodo}){
     return(
         <ul>
           {todoList.map(function(todo){
+              console.log(todo);
                 return( 
-                <TodoListItem key={todo.id} id={todo.id} title={todo.fields.Title} onRemoveTodo={onRemoveTodo} /> //passing props 'todo' 
+                <TodoListItem key={todo.id} todo={todo} onRemoveTodo={onRemoveTodo} /> //passing props 'todo' 
                 )}
             )}
         </ul> 
     );
 }
 export default TodoList;
+//todo.fields.Title
