@@ -1,6 +1,7 @@
 import React, { useState , useEffect } from 'react';
 import AddTodoForm from './AddTodoForm';
 import TodoList from './TodoList';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
 
@@ -36,15 +37,23 @@ function App() {
 };
 
   return (
-    <> 
-        <h1>Todo List</h1>
-          <AddTodoForm 
-          onAddTodo={addTodo}/>
-            {isLoading ? <p>Is Loading...</p> :  
-          <TodoList todoList={todoList} onRemoveTodo={removeTodo} />}
-    </>
+    // Wrap existing JSX within new BrowserRouter component 
+    <BrowserRouter>
+      {/*Inside BrowserRouter, wrap existing JSX within new Routes component*/}
+      <Routes>
+        {/*Inside Routes, wrap existing JSX within new Route component with prop path equal to the root path ("/") and prop exact*/}
+        <Route path="/" 
+          element={
+          <>
+            <AddTodoForm onAddTodo={addTodo}/>
+              {isLoading ? <p>Is Loading...</p> : <TodoList todoList={todoList} onRemoveTodo={removeTodo} />}
+          </>
+          }      
+        />
+      {/* Below the Route component, create a new Route with path "/new" */}
+      <Route path="/new" element={<h1>New Todo List</h1>}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 export default App;
-
- 
